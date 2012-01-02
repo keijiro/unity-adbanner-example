@@ -1,0 +1,8 @@
+.DS_Store
+*.swp
+AndroidPlugin/bin
+AndroidPlugin/gen
+AndroidPlugin/proguard.cfg
+AndroidPlugin/local.properties
+Library
+Temp
