@@ -2,7 +2,7 @@
 
 Unity 3.5 より追加された ADBannerView クラスは、今のところ iAd にしか対応していません。 Android では依然として外部プラグインを使用する必要があります。このプロジェクトは外部プラグインを使用して iOS と Android の両方でバナー広告を表示する仕組みの実装例を提示するものです。
 
-![iOS](https://github.com/downloads/keijiro/unity-adbanner-example/ss_ios.png) ![Android](https://github.com/downloads/keijiro/unity-adbanner-example/ss_android.png)
+![iOS](https://github.com/downloads/keijiro/unity-adbanner-example/ss_ios.png) <span /> ![Android](https://github.com/downloads/keijiro/unity-adbanner-example/ss_android.png)
 
 ### 仕組み
 
