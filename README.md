@@ -16,10 +16,6 @@ Plugins/Android ディレクトリの中に AdMobPlugin.jar があります。�
 
 また、アクティビティとパーミッションの追加を行うために AndroidManifest.xml も含めておく必要があります。既に AndroidManifest.xml の置き換えを行っている場合は手動で結合編集してください。
 
-#### 注意
-
-UnityPlayerNativeActivity を使用すると、バナー広告にタッチイベントが届かなくなるという問題が発生する模様です。この問題を回避するには、AndroidManifest.xml において起動アクティビティとして UnityPlayerActivity を指定する必要があります。独自に AndroidManifest.xml を記述する場合は注意してください。
-
 ### Android 側のソースコード
 
 AdMobPlugin.jar のソースコードは AndroidPlugin ディレクトリに格納してあります（Antプロジェクト）。AdMob SDK のバージョンアップを行う場合などにこちらを利用してください。
