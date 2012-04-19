@@ -20,9 +20,11 @@ public class ADBanner : MonoBehaviour {
         }
 #elif UNITY_ANDROID
         AndroidJavaClass plugin = new AndroidJavaClass("jp.radiumsoftware.unityplugin.admob.AdBannerController");
+        AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+        AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
         while (true) {
-            plugin.CallStatic("tryCreateBanner", "a14e4873bd055aa", "test_device_code_here");
-            yield return new WaitForSeconds(1.0f);
+            plugin.CallStatic("tryCreateBanner", activity, "a14e4873bd055aa", "test_device_code_here");
+            yield return new WaitForSeconds(30.0f);
         }
 #else
         return null;
