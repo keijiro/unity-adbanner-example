@@ -24,6 +24,8 @@ public class ADBanner : MonoBehaviour {
             plugin.CallStatic("tryCreateBanner", "a14e4873bd055aa", "test_device_code_here");
             yield return new WaitForSeconds(1.0f);
         }
+#else
+        return null;
 #endif
     }
 }
