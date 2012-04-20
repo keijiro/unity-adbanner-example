@@ -6,13 +6,15 @@ Unity 3.5 より追加された ADBannerView クラスは、今のところ iAd 
 
 ### 使い方
 
-ビルド済みのパッケージを用意しました。**他に Android プラグインを使用していない**場合はこれを問題無く使用できると思います。
+ビルド済みのパッケージを用意しました。**他に AndroidManifest.xml の置換を行うプラグインを使用していない**場合は、これを利用できます。
 
 [unity-adbanner-plugin-20120420.unitypackage](https://github.com/downloads/keijiro/unity-adbanner-example/unity-adbanner-plugin-20120420.unitypackage)
 
 バナー広告を表示するには AdBannerObserver の Initialize 関数を呼ぶ必要があります。第1引数に AdMob のパブリッシャー ID を、第2引数にテストデバイスの ID を、第3引数に広告リフレッシュの間隔（秒数）を指定します。
 
+```C#
     AdBannerObserver.Initialize("a14e4873bd055aa", "test_device_code_here", 60.0);
+```
 
 この関数は何度呼んでも大丈夫ですが、実際に適用されるのは最初の一回のみです。
 
@@ -24,16 +26,20 @@ Unity 3.5 より追加された ADBannerView クラスは、今のところ iAd 
 
 - ForwardNativeEventsToDalvik を true に変更
 
+```XML
     <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="true" />
+```
 
 - 以下のパーミッションを追加
 
+```XML
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+```
 
 ### リフレッシュ間隔について
 
-リフレッシュ間隔は AdMob の広告制御側でも行うことができますが、そちらの設定は考慮されず、このプラグインによって強制的にリフレッシュが行われます。これは、ネットワークが切断された後に広告のリフレッシュを復帰するための処理と、リフレッシュ処理自体を同じものとして実装しているためです（要するに手抜きです……）。
+本来、リフレッシュ間隔は AdMob の広告制御側でも行うことができますが、このプラグインではそちらの設定を考慮せず、強制的にリフレッシュを行います。これは、ネットワークが切断された後に広告のリフレッシュを復帰するための処理と、リフレッシュ処理自体を同じものとして実装しているためです（要するに手抜きです……）。
 
 ### Android 側のソースコード
 
