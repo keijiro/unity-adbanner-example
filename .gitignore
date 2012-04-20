@@ -5,5 +5,5 @@ AndroidPlugin/gen
 AndroidPlugin/proguard.cfg
 AndroidPlugin/proguard-project.txt
 AndroidPlugin/local.properties
-Library
-Temp
+Sample/Library
+Sample/Temp
