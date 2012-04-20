@@ -4,18 +4,37 @@ Unity 3.5 より追加された ADBannerView クラスは、今のところ iAd 
 
 ![iOS](https://github.com/downloads/keijiro/unity-adbanner-example/ss_ios.png) <span /> ![Android](https://github.com/downloads/keijiro/unity-adbanner-example/ss_android.png)
 
-### 仕組み
+### 使い方
 
-[ADBanner.cs](https://github.com/keijiro/unity-adbanner-example/blob/master/Assets/Scripts/ADBanner.cs) の中にバナー広告の制御が記述されています。 iOS では単に ADBannerView を使って iAd をロード・表示しているだけです。 Android ではプラグインを1秒毎に呼び出してロード・表示を試行しています。定期的に試行するのは、アクティビティが一旦バックグラウンドに入ってから復帰した場合にバナーも復帰できるようにするためです。
+ビルド済みのパッケージを用意しました。**他に Android プラグインを使用していない**場合はこれを問題無く使用できると思います。
 
-実際のゲームプロジェクトにおいては、このスクリプトがシーン切り替え時に消滅しないようにする必要があります。このスクリプトに DontDestroyOnLoad を与えて存続させるか、あるいは全シーンにこのスクリプトを配置する等の対処が考えられます。
+[unity-adbanner-plugin-20120420.unitypackage](https://github.com/downloads/keijiro/unity-adbanner-example/unity-adbanner-plugin-20120420.unitypackage)
 
-### Android 側の構成
+バナー広告を表示するには AdBannerObserver の Initialize 関数を呼ぶ必要があります。第1引数に AdMob のパブリッシャー ID を、第2引数にテストデバイスの ID を、第3引数に広告リフレッシュの間隔（秒数）を指定します。
 
-Plugins/Android ディレクトリの中に AdMobPlugin.jar があります。これがプラグイン本体です。ただしこのプラグインを使用するには、同時に AdMob SDK の jar ファイルも入れておく必要があります。このプロジェクトでは GoogleAdMobAdsSdk-4.3.1.jar を入れてあります。
+    AdBannerObserver.Initialize("a14e4873bd055aa", "test_device_code_here", 60.0);
 
-また、アクティビティとパーミッションの追加を行うために AndroidManifest.xml も含めておく必要があります。既に AndroidManifest.xml の置き換えを行っている場合は手動で結合編集してください。
+この関数は何度呼んでも大丈夫ですが、実際に適用されるのは最初の一回のみです。
+
+### 他プラグインとの共存
+
+他に Android プラグインを使用していて、なおかつ、そのプラグインが AndroidManifest.xml の置換を行っている場合、AndroidManifest.xml の統合を手動で行う必要があります。
+
+このプラグインで行っている変更は以下の2点のみです。この変更を統合される側の AndroidManifest.xml に適用してください。
+
+- ForwardNativeEventsToDalvik を true に変更
+
+    <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="true" />
+
+- 以下のパーミッションを追加
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+### リフレッシュ間隔について
+
+リフレッシュ間隔は AdMob の広告制御側でも行うことができますが、そちらの設定は考慮されず、このプラグインによって強制的にリフレッシュが行われます。これは、ネットワークが切断された後に広告のリフレッシュを復帰するための処理と、リフレッシュ処理自体を同じものとして実装しているためです（要するに手抜きです……）。
 
 ### Android 側のソースコード
 
-AdMobPlugin.jar のソースコードは AndroidPlugin ディレクトリに格納してあります（Antプロジェクト）。AdMob SDK のバージョンアップを行う場合などにこちらを利用してください。
+AdMobPlugin.jar のソースコードは AndroidPlugin ディレクトリに格納してあります（Antプロジェクト）。プラグイン自体の改造を行う場合はこちらを利用してください。
